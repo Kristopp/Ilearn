@@ -9,7 +9,6 @@ export default function App() {
   const [date, setDate] = useState('')
   //Store input values
   const [iLearned, setIlearned] = useState([])
- fetch
   const iLearnedInputHandler = (enteredText) => { 
     setLearning(enteredText)
   }

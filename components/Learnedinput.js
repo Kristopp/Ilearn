@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, TextInput, Button, StyleSheet } from "react-native";
+import {
+  View,
+  TextInput,
+  Button,
+  StyleSheet,
+  TouchableOpacity,
+  Modal,
+} from "react-native";
 
 const Learnedinput = (props) => {
   //To get input
@@ -10,15 +17,17 @@ const Learnedinput = (props) => {
   };
 
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        placeholder='What i learned to day?'
-        style={styles.input}
-        onChangeText={iLearnedInputHandler}
-        value={learning}
-      />
-      <Button title='ADD' onPress={props.addLearned.bind(this, learning)} />
-    </View>
+    <Modal visible={props.visible} animationType='slide'>
+      <View style={styles.inputContainer}>
+        <TextInput
+          placeholder='What i learned to day?'
+          style={styles.input}
+          onChangeText={iLearnedInputHandler}
+          value={learning}
+        />
+        <Button title='ADD' onPress={props.addLearned.bind(this, learning)} />
+      </View>
+    </Modal>
   );
 };
 const styles = StyleSheet.create({

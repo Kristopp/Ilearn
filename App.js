@@ -11,8 +11,12 @@ export default function App() {
   const [modalState, setModal] = useState(false);
 
   const addLearnHandler = (learned) => {
-    /* to use Flatlist comp our list needs to object and key must be in object */
-    getDate();
+    //Check for empty input
+    if (iLearned.length === 0) {
+      return;
+    }
+    /* to use Flatlist comp our list needs to be a object and key must be inside object */
+    setDate(getDate);
     setIlearned((currentlyLearning) => [
       ...currentlyLearning,
       {
@@ -21,6 +25,7 @@ export default function App() {
         timeDate: date,
       },
     ]);
+    setModal(false);
   };
   //LearnedId is the id onCliked element and thats the one we filter from array
   const deletLearned = (learnedId) => {
@@ -29,6 +34,10 @@ export default function App() {
       return currentlyLearning.filter((itemI) => itemI.id !== learnedId);
     });
   };
+
+  const cancelAddLearning = () => {
+    setModal(false);
+  };
   const getDate = () => {
     const newDate = new Date();
     const getTime = newDate.getHours() + ":" + newDate.getMinutes();
@@ -36,15 +45,22 @@ export default function App() {
     const month = newDate.getMonth() + 1;
     const year = newDate.getFullYear();
     const formatedDate = getTime + " " + day + "-" + month + "-" + year + " ";
-    setDate(formatedDate);
+    return formatedDate;
   };
   return (
     <View style={styles.screen}>
-      <Learnedinput addLearned={addLearnHandler} visible={modalState} />
+      <Learnedinput
+        addLearned={addLearnHandler}
+        visible={modalState}
+        cancelModal={cancelAddLearning}
+      />
       {/* Use flat list becouse we dont know how long our list will be and we dont want to render 
       full list pede kari
       */}
       {/* render item takes function that is called for everyitem in data to render a list item  */}
+      <Button
+        title='Rember what i learned'
+        onPress={() => setModal(true)}></Button>
       <FlatList
         data={iLearned}
         renderItem={(itemData) => (
@@ -56,9 +72,6 @@ export default function App() {
           />
         )}
       />
-      <Button
-        title='Rember what i learned'
-        onPress={() => setModal(true)}></Button>
     </View>
   );
 }

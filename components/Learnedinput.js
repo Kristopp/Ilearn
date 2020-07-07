@@ -15,9 +15,14 @@ const Learnedinput = (props) => {
   const iLearnedInputHandler = (enteredText) => {
     setLearning(enteredText);
   };
+  const clearInput = () => {
+    props.addLearned(learning);
+    setLearning("");
+  };
 
   return (
     <Modal visible={props.visible} animationType='slide'>
+      {/* //View comp only takes size its children req */}
       <View style={styles.inputContainer}>
         <TextInput
           placeholder='What i learned to day?'
@@ -25,22 +30,43 @@ const Learnedinput = (props) => {
           onChangeText={iLearnedInputHandler}
           value={learning}
         />
-        <Button title='ADD' onPress={props.addLearned.bind(this, learning)} />
+        <View style={styles.buttonContainer}>
+          <View style={styles.buttonAdd}>
+            <Button title='ADD' onPress={clearInput} />
+          </View>
+          <View style={styles.buttonCancel}>
+            <Button title='cancel' onPress={props.cancelModal}></Button>
+          </View>
+        </View>
       </View>
     </Modal>
   );
 };
 const styles = StyleSheet.create({
   inputContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
   },
   input: {
-    width: 200,
+    width: "80%",
     borderColor: "black",
     borderWidth: 1,
+    margin: 10,
     padding: 10,
+  },
+  buttonContainer: {
+    justifyContent: "center",
+    flexDirection: "row",
+    width: "70%",
+  },
+  buttonAdd: {
+    width: "35%",
+    margin: 5,
+  },
+  buttonCancel: {
+    width: "35%",
+    margin: 5,
   },
 });
 export default Learnedinput;
